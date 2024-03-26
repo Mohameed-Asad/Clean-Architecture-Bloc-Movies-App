@@ -8,7 +8,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PopularMovies()
+        // here show CarouselSlider for popular Movies
+        PopularMovies(),
+        SizedBox(height: 5,),
+        // ReleaseMovies()
       ],
     );
   }

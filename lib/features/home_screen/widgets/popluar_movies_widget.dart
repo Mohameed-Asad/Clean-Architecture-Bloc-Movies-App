@@ -10,29 +10,51 @@ class PopularMoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      child: Stack(
-        alignment: Alignment.bottomRight,
-          children: [
-        Column(children: [
-          Image.network(
-            "${Constants.imagePath}${popularMovies.backPath}",
-          ),
-          Row(
-            children: [
-              Container(
-                width: Constants.mediaQuery.width * 0.42,
-                height: Constants.mediaQuery.height * 0.23,
-                child: Image.network(
-                  "${Constants.imagePath}${popularMovies.posterPath}",
+    return Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                alignment: Alignment.topCenter,
+                image: NetworkImage(
+                  "${Constants.imagePath}${popularMovies.backPath}",
                 ),
               ),
-              Column(children: [Text("Dora"), Text("234234")])
-            ],
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  alignment: Alignment.bottomLeft,
+                  width: Constants.mediaQuery.width * 0.33,
+                  height: Constants.mediaQuery.height * 0.2,
+                  child: Image.network(
+                      "${Constants.imagePath}${popularMovies.posterPath}"),
+                ),
+              ],
+            ),
           ),
-        ]),
-      ]),
+          Padding(
+            padding: const EdgeInsets.only(left: 170,bottom: 33,
+            top: 225),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [Text(popularMovies.title,
+                  style: Constants.theme.textTheme.bodyLarge?.copyWith(
+                    height: 1,),
+                  textAlign: TextAlign.start,),
+                  const SizedBox(height: 5,),
+                  Text(popularMovies.releaseDate,
+                style: Constants.theme.textTheme.bodyMedium?.copyWith(
+                  color: Colors.grey
+                ),
+                textAlign: TextAlign.start,),],
+              ),
+          ),
+        ],
+
     );
   }
 }
