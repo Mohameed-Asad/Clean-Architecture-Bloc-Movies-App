@@ -56,7 +56,14 @@ class AppThemeManager {
           fontWeight: FontWeight.w200,
           fontSize: 13,
           color: Colors.white,
-        )),
+        ),
+      displaySmall: TextStyle(
+        fontFamily: "Inter",
+        fontWeight: FontWeight.w100,
+        fontSize: 8,
+        color: Colors.white,
+      ),
+    ),
     // appBarTheme: const AppBarTheme(
     //   backgroundColor: Color(0xff1D1E1D),
     //   iconTheme: IconThemeData(

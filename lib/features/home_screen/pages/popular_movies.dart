@@ -10,32 +10,35 @@ class PopularMovies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: FutureBuilder(
-        future: ApiManager.getPopularMovies(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(
-              child: Text("Something went wrong"),
+      child: SizedBox(
+        height: Constants.mediaQuery.height * 0.37,
+        child: FutureBuilder(
+          future: ApiManager.getPopularMovies(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Center(
+                child: Text("Something went wrong"),
+              );
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            var dataList = snapshot.data ?? [];
+            return CarouselSlider.builder(
+              itemCount: dataList.length,
+              options: CarouselOptions(
+                height: Constants.mediaQuery.height * 0.37,
+                autoPlay: false,
+                autoPlayAnimationDuration: const Duration(seconds: 2),
+                viewportFraction: 1,
+                scrollDirection: Axis.horizontal,
+              ),
+              itemBuilder: (context, index, realIndex) => PopularMoviesWidget(
+                popularMovies: dataList[index],
+              ),
             );
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          var dataList = snapshot.data ?? [];
-          return CarouselSlider.builder(
-                itemCount: dataList.length,
-                options: CarouselOptions(
-                  height: Constants.mediaQuery.height * 0.37,
-                  autoPlay: false,
-                  autoPlayAnimationDuration: const Duration(seconds: 2),
-                  viewportFraction: 1,
-                  scrollDirection: Axis.horizontal,
-                ),
-                itemBuilder: (context, index, realIndex) => PopularMoviesWidget(
-                  popularMovies: dataList[index],
-                ),
-          );
-        },
+          },
+        ),
       ),
     );
   }

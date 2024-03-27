@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movies_project/core/config/Constants.dart';
-import 'package:movies_project/features/home_screen/widgets/release_movies_widget.dart';
+import 'package:movies_project/features/home_screen/widgets/recommended_movies_widget.dart';
 
+import '../../../core/config/Constants.dart';
 import '../../../core/network/api_manager.dart';
 
-class ReleaseMovies extends StatelessWidget {
-  const ReleaseMovies({super.key});
+class RecommendedMovies extends StatelessWidget {
+  const RecommendedMovies({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,12 @@ class ReleaseMovies extends StatelessWidget {
       height: Constants.mediaQuery.height * 0.23,
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Text(
-          "New Release",
+          "Recommended",
           style: Constants.theme.textTheme.bodyMedium,
           textAlign: TextAlign.start,
         ),
         FutureBuilder(
-          future: ApiManager.getReleaseMovies(),
+          future: ApiManager.getRecommendedMovies(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return const Center(
@@ -32,13 +32,15 @@ class ReleaseMovies extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             var dataList = snapshot.data ?? [];
-            return Expanded(
+            return Container(
+              margin: const EdgeInsets.only(top: 10, bottom: 4),
+              height: Constants.mediaQuery.height * 0.155,
               child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: dataList.length,
-                itemBuilder: (context, index) =>
-                    ReleaseMoviesWidget(releaseModel: dataList[index]),
-              ),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: dataList.length,
+                    itemBuilder: (context, index) => RecommendedMoviesWidget(
+                          recommendedModel: dataList[index],
+                        )),
             );
           },
         ),

@@ -35,9 +35,9 @@ class PopularMoviesWidget extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 170,bottom: 33,
-            top: 225),
+          Container(
+            margin: const EdgeInsets.only(left: 170,bottom: 25,
+            top: 230),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.end,
