@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/config/Constants.dart';
-import 'package:movies_project/core/network/api_manager.dart';
+import 'package:movies_project/core/models/api_models.dart';
 import 'package:movies_project/features/home_screen/widgets/popluar_movies_widget.dart';
 
 class PopularMovies extends StatelessWidget {
@@ -9,11 +9,12 @@ class PopularMovies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)?.settings.arguments as ApisCaller;
     return SafeArea(
       child: SizedBox(
         height: Constants.mediaQuery.height * 0.37,
         child: FutureBuilder(
-          future: ApiManager.getPopularMovies(),
+          future: args.popularApi,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return const Center(

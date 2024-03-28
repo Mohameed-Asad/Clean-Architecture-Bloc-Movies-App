@@ -6,6 +6,20 @@ class AppThemeManager {
   static ThemeData applicationThemeData = ThemeData(
     primaryColor: primaryColor,
     scaffoldBackgroundColor: const Color(0xff121312),
+    appBarTheme: const AppBarTheme(
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontFamily: "Inter",
+        fontWeight: FontWeight.w200,
+        fontSize: 18,
+        color: Colors.white,
+      ),
+      backgroundColor: Color(0xff1D1E1D),
+      iconTheme: IconThemeData(
+        color: Colors.white,
+        size: 25,
+      ),
+    ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Color(0xff1A1A1A),
       type: BottomNavigationBarType.fixed,
@@ -64,12 +78,5 @@ class AppThemeManager {
         color: Colors.white,
       ),
     ),
-    // appBarTheme: const AppBarTheme(
-    //   backgroundColor: Color(0xff1D1E1D),
-    //   iconTheme: IconThemeData(
-    //     color: Colors.white,
-    //     size: 35,
-    //   ),
-    // ),
   );
 }

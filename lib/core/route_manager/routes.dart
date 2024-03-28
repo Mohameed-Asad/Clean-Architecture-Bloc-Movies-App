@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/route_manager/routes_names.dart';
 import 'package:movies_project/features/layout_view.dart';
+import 'package:movies_project/features/movies_details_screen/pages/movies_details_screen.dart';
 import 'package:movies_project/features/splash_screen/splash_screen.dart';
 
 class Routes {
@@ -9,9 +10,12 @@ class Routes {
       case PagesRoutesName.splash:
         return MaterialPageRoute(
             builder: (context) => const SplashScreen(), settings: settings);
-        case PagesRoutesName.layout:
+      case PagesRoutesName.layout:
         return MaterialPageRoute(
             builder: (context) => const LayoutView(), settings: settings);
+      case PagesRoutesName.details:
+        return MaterialPageRoute(
+            builder: (context) => const MoviesDetails(), settings: settings);
 
       default:
         return MaterialPageRoute(builder: (context) => const SplashScreen());

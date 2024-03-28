@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:movies_project/core/config/Constants.dart';
 import 'package:movies_project/features/home_screen/widgets/release_movies_widget.dart';
 
-import '../../../core/network/api_manager.dart';
+import '../../../core/models/api_models.dart';
 
 class ReleaseMovies extends StatelessWidget {
   const ReleaseMovies({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)?.settings.arguments as ApisCaller;
     return Container(
       padding: const EdgeInsets.only(left: 17, top: 17),
       color: const Color(0xff1A1A1A),
@@ -21,7 +22,7 @@ class ReleaseMovies extends StatelessWidget {
           textAlign: TextAlign.start,
         ),
         FutureBuilder(
-          future: ApiManager.getReleaseMovies(),
+          future: args.releaseApi,
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return const Center(

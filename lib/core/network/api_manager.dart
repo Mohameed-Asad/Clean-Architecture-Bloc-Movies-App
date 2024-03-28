@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:movies_project/core/config/Constants.dart';
+import 'package:movies_project/core/models/model_details.dart';
 import 'package:movies_project/core/models/recommended_model.dart';
 import 'package:movies_project/core/models/release_model.dart';
 
 import '../models/popular_model.dart';
 
 class ApiManager {
+  // Function to get popularMovies
   static Future<List<PopularModel>> getPopularMovies() async {
     var url = Uri.https(
         Constants.baseUrl, "/3/movie/popular", {"apiKey": Constants.apiKey});
@@ -30,13 +32,15 @@ class ApiManager {
       throw Exception('Failed to load popularMovies');
     }
   }
+
+  // Function to get ReleaseMovies
   static Future<List<ReleaseModel>> getReleaseMovies() async {
     var url = Uri.https(
         Constants.baseUrl, "/3/movie/upcoming", {"apiKey": Constants.apiKey});
 
     final response = await http.get(url, headers: {
       "Authorization":
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGRiM2VjODhhN2Q3NmIzMjM4YzU2YWEyMTE1ZjE4MSIsInN1YiI6IjY2MDFjZDJjZDM4YjU4MDE0YTE5NmE3OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KcXh3PKk-gHo3ryEmbFmRBt4eSpcpNQqV4K4MYT5M3w"
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGRiM2VjODhhN2Q3NmIzMjM4YzU2YWEyMTE1ZjE4MSIsInN1YiI6IjY2MDFjZDJjZDM4YjU4MDE0YTE5NmE3OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KcXh3PKk-gHo3ryEmbFmRBt4eSpcpNQqV4K4MYT5M3w"
     });
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -52,13 +56,15 @@ class ApiManager {
       throw Exception('Failed to load popularMovies');
     }
   }
+
+  // Function to get RecommendedMovies
   static Future<List<RecommendedModel>> getRecommendedMovies() async {
     var url = Uri.https(
         Constants.baseUrl, "/3/movie/top_rated", {"apiKey": Constants.apiKey});
 
     final response = await http.get(url, headers: {
       "Authorization":
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGRiM2VjODhhN2Q3NmIzMjM4YzU2YWEyMTE1ZjE4MSIsInN1YiI6IjY2MDFjZDJjZDM4YjU4MDE0YTE5NmE3OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KcXh3PKk-gHo3ryEmbFmRBt4eSpcpNQqV4K4MYT5M3w"
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGRiM2VjODhhN2Q3NmIzMjM4YzU2YWEyMTE1ZjE4MSIsInN1YiI6IjY2MDFjZDJjZDM4YjU4MDE0YTE5NmE3OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KcXh3PKk-gHo3ryEmbFmRBt4eSpcpNQqV4K4MYT5M3w"
     });
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
@@ -75,4 +81,23 @@ class ApiManager {
     }
   }
 
+  // Function to get ModelDetails
+  static Future<ModelDetails> getModelDetails(int movieId) async {
+    var url = Uri.https(Constants.baseUrl, "/3/movie/$movieId",
+        {"apiKey": Constants.apiKey, "movie_id": "$movieId"});
+
+    final response = await http.get(url, headers: {
+      "Authorization":
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MGRiM2VjODhhN2Q3NmIzMjM4YzU2YWEyMTE1ZjE4MSIsInN1YiI6IjY2MDFjZDJjZDM4YjU4MDE0YTE5NmE3OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KcXh3PKk-gHo3ryEmbFmRBt4eSpcpNQqV4K4MYT5M3w"
+    });
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      ModelDetails modelDetails = ModelDetails.fromJson(data);
+      return modelDetails;
+    } else {
+      throw Exception('Failed to load popularMovies');
+    }
+  }
+
+  static getKinds(int kindId) {}
 }
