@@ -27,7 +27,6 @@ class MoviesDetails extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 var model = snapshot.data;
-                print(movieId.id);
                 return MovieDetailsWidget(modelDetails: model!);
               })),
     );

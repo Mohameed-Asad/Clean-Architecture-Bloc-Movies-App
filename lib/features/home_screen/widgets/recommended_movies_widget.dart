@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/config/app_theme_manager.dart';
 import 'package:movies_project/core/models/recommended_model.dart';
+import 'package:movies_project/core/widgets/add_favourite.dart';
 
 import '../../../core/config/Constants.dart';
+import '../../../core/models/allmovies_model.dart';
+import '../../../core/route_manager/routes_names.dart';
+import '../../../main.dart';
 
-class RecommendedMoviesWidget extends StatefulWidget {
+class RecommendedMoviesWidget extends StatelessWidget {
   final RecommendedModel recommendedModel;
 
   const RecommendedMoviesWidget({super.key, required this.recommendedModel});
-
-  @override
-  State<RecommendedMoviesWidget> createState() =>
-      _RecommendedMoviesWidgetState();
-}
-
-class _RecommendedMoviesWidgetState extends State<RecommendedMoviesWidget> {
-  bool isClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,53 +23,18 @@ class _RecommendedMoviesWidgetState extends State<RecommendedMoviesWidget> {
           color: Colors.grey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(8)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Stack(
-          alignment: Alignment.topLeft,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8), topLeft: Radius.circular(8)),
-              child: Image.network(
-                  "${Constants.imagePath}${widget.recommendedModel.posterPath}",
-                  height: 78),
-            ),
-            // w),
-            if (!isClicked) Image.asset("assets/Images/favorite.png"),
-            if (!isClicked)
-              Positioned(
-                  top: -10,
-                  left: -11,
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isClicked = !isClicked;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  )),
-            if (isClicked) Image.asset("assets/Images/bookmark.png"),
-            if (isClicked)
-              Positioned(
-                  top: -10,
-                  left: -11,
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isClicked = !isClicked;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.check_sharp,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  )),
-          ],
-        ),
+        FavoriteWidget(
+            newImage: GestureDetector(
+          onTap: () {
+            navigatorKey.currentState!.pushNamed(PagesRoutesName.details,
+                arguments: AllMoviesId(
+                    id: recommendedModel.id!, name: recommendedModel.title));
+          },
+          child: Image.network(
+            "${Constants.imagePath}${recommendedModel.posterPath}",
+            height: 78,
+          ),
+        )),
         Container(
           margin: const EdgeInsets.only(bottom: 1, left: 5, top: 3, right: 2),
           child: Column(
@@ -90,7 +51,7 @@ class _RecommendedMoviesWidgetState extends State<RecommendedMoviesWidget> {
                     width: 2,
                   ),
                   Text(
-                    "${widget.recommendedModel.rate}",
+                    "${recommendedModel.rate}",
                     style: Constants.theme.textTheme.displaySmall,
                   )
                 ],
@@ -99,13 +60,13 @@ class _RecommendedMoviesWidgetState extends State<RecommendedMoviesWidget> {
                 height: 2,
               ),
               Text(
-                widget.recommendedModel.title,
+                recommendedModel.title,
                 style: Constants.theme.textTheme.displaySmall,
               ),
               const SizedBox(
                 height: 2,
               ),
-              Text(widget.recommendedModel.releaseDate,
+              Text(recommendedModel.releaseDate,
                   style: Constants.theme.textTheme.displaySmall
                       ?.copyWith(color: Colors.grey))
             ],

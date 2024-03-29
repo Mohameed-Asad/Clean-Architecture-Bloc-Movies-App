@@ -73,7 +73,7 @@ class AppThemeManager {
         ),
       displaySmall: TextStyle(
         fontFamily: "Inter",
-        fontSize: 10,
+        fontSize: 9,
         color: Colors.white,
       ),
     ),

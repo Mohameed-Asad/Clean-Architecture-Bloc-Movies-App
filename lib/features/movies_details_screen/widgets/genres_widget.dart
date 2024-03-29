@@ -13,7 +13,7 @@ class GenresWidget extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: const Color(0xFF514F4F), width: 2)),
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(4),
       child: Text(
         genres.name,
         style: Constants.theme.textTheme.displaySmall,

@@ -3,38 +3,32 @@ import 'package:movies_project/core/config/Constants.dart';
 import 'package:movies_project/core/config/app_theme_manager.dart';
 import 'package:movies_project/core/models/model_details.dart';
 import 'package:movies_project/core/network/api_manager.dart';
+import 'package:movies_project/core/widgets/add_favourite.dart';
 import 'package:movies_project/features/movies_details_screen/widgets/genres_widget.dart';
 import 'package:movies_project/features/movies_details_screen/widgets/similar_widget.dart';
 
-class MovieDetailsWidget extends StatefulWidget {
+class MovieDetailsWidget extends StatelessWidget {
   final ModelDetails modelDetails;
 
   const MovieDetailsWidget({super.key, required this.modelDetails});
-
-  @override
-  State<MovieDetailsWidget> createState() => _MovieDetailsWidgetState();
-}
-
-class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
-  bool isClicked = false;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.network("${Constants.imagePath}${widget.modelDetails.backPath}"),
+        Image.network("${Constants.imagePath}${modelDetails.backPath}"),
         Padding(
           padding: const EdgeInsets.only(top: 10, left: 20),
           child: Text(
-            "${widget.modelDetails.title}",
+            "${modelDetails.title}",
             style: Constants.theme.textTheme.bodyLarge,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 3, left: 20),
           child: Text(
-            "${widget.modelDetails.releaseDate}",
+            "${modelDetails.releaseDate}",
             style: Constants.theme.textTheme.bodySmall
                 ?.copyWith(color: Colors.grey),
           ),
@@ -46,63 +40,22 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
           child: Row(
             children: [
               // add to favourite Icon and poster imager
-              Stack(
-                children: [
-                  Image.network(
-                    "${Constants.imagePath}${widget.modelDetails.posterPath}",
-                  ),
-                  if (!isClicked)
-                    Image.asset(
-                      "assets/Images/favorite.png",
-                    ),
-                  if (!isClicked)
-                    Positioned(
-                        top: -10,
-                        left: -11,
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isClicked = !isClicked;
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.add,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        )),
-                  if (isClicked) Image.asset("assets/Images/bookmark.png"),
-                  if (isClicked)
-                    Positioned(
-                        top: -10,
-                        left: -11,
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isClicked = !isClicked;
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.check_sharp,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        )),
-                ],
-              ),
+              FavoriteWidget(
+                  newImage: Image.network(
+                      "${Constants.imagePath}${modelDetails.posterPath}")),
               const SizedBox(
                 width: 15,
               ),
               // genres and description and rate view
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.only(bottom: 5),
                   child: Column(
                     children: [
                       SizedBox(
-                        height: Constants.mediaQuery.height * 0.077,
+                        height: Constants.mediaQuery.height * 0.075,
                         child: GridView.builder(
-                            itemCount: widget.modelDetails.kinds!.length,
+                            itemCount: modelDetails.kinds!.length,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3,
@@ -110,13 +63,13 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                                     crossAxisSpacing: 5,
                                     childAspectRatio: 2.6),
                             itemBuilder: (context, index) => GenresWidget(
-                                genres: widget.modelDetails.kinds![index])),
+                                genres: modelDetails.kinds![index])),
                       ),
                       Expanded(
                         child: Text(
-                          "${widget.modelDetails.description}",
+                          "${modelDetails.description}",
                           style: Constants.theme.textTheme.displaySmall
-                              ?.copyWith(height: 1.4),
+                              ?.copyWith(height: 1.2),
                         ),
                       ),
                       Row(
@@ -128,7 +81,7 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                           const SizedBox(
                             width: 4,
                           ),
-                          Text("${widget.modelDetails.rate}")
+                          Text("${modelDetails.rate}")
                         ],
                       ),
                     ],
@@ -154,7 +107,7 @@ class _MovieDetailsWidgetState extends State<MovieDetailsWidget> {
                 textAlign: TextAlign.start,
               ),
               FutureBuilder(
-                future: ApiManager.getSimilarMovies(widget.modelDetails.id!),
+                future: ApiManager.getSimilarMovies(modelDetails.id!),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Center(

@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movies_project/core/widgets/add_favourite.dart';
 
 import '../../../core/config/Constants.dart';
 import '../../../core/config/app_theme_manager.dart';
 import '../../../core/models/recommended_model.dart';
 
-class SimilarWidget extends StatefulWidget {
+class SimilarWidget extends StatelessWidget {
   final RecommendedModel recommendedModel;
 
   const SimilarWidget({super.key, required this.recommendedModel});
-
-  @override
-  State<SimilarWidget> createState() => _SimilarWidgetState();
-}
-
-class _SimilarWidgetState extends State<SimilarWidget> {
-  bool isClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,53 +20,11 @@ class _SimilarWidgetState extends State<SimilarWidget> {
           color: Colors.grey.withOpacity(0.2),
           borderRadius: BorderRadius.circular(8)),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Stack(
-          alignment: Alignment.topLeft,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(8), topLeft: Radius.circular(8)),
-              child: Image.network(
-                  "${Constants.imagePath}${widget.recommendedModel.posterPath}",
-                  height: 78),
-            ),
-            // w),
-            if (!isClicked) Image.asset("assets/Images/favorite.png"),
-            if (!isClicked)
-              Positioned(
-                  top: -10,
-                  left: -11,
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isClicked = !isClicked;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  )),
-            if (isClicked) Image.asset("assets/Images/bookmark.png"),
-            if (isClicked)
-              Positioned(
-                  top: -10,
-                  left: -11,
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isClicked = !isClicked;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.check_sharp,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  )),
-          ],
-        ),
+        FavoriteWidget(
+            newImage: Image.network(
+          "${Constants.imagePath}${recommendedModel.posterPath}",
+          height: 78,
+        )),
         Container(
           margin: const EdgeInsets.only(bottom: 1, left: 5, top: 3, right: 2),
           child: Column(
@@ -89,7 +41,7 @@ class _SimilarWidgetState extends State<SimilarWidget> {
                     width: 2,
                   ),
                   Text(
-                    "${widget.recommendedModel.rate}",
+                    "${recommendedModel.rate}",
                     style: Constants.theme.textTheme.displaySmall,
                   )
                 ],
@@ -98,13 +50,13 @@ class _SimilarWidgetState extends State<SimilarWidget> {
                 height: 2,
               ),
               Text(
-                widget.recommendedModel.title,
+                recommendedModel.title,
                 style: Constants.theme.textTheme.displaySmall,
               ),
               const SizedBox(
                 height: 2,
               ),
-              Text(widget.recommendedModel.releaseDate,
+              Text(recommendedModel.releaseDate,
                   style: Constants.theme.textTheme.displaySmall
                       ?.copyWith(color: Colors.grey))
             ],

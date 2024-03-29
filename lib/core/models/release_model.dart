@@ -1,8 +1,10 @@
 class ReleaseModel {
+  int? id;
+  String? title;
   final String posterPath;
 
-  ReleaseModel({required this.posterPath});
+  ReleaseModel({this.id, this.title, required this.posterPath});
 
   factory ReleaseModel.fromJson(Map<String, dynamic> json) => ReleaseModel(
-  posterPath: json["poster_path"]);
+      id: json["id"], title: json["title"], posterPath: json["poster_path"]);
 }
