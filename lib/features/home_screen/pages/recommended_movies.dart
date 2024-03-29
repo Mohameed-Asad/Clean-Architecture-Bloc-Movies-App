@@ -11,7 +11,7 @@ class RecommendedMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments as ApisCaller;
     return Container(
-      padding: const EdgeInsets.only(left: 17, top: 17),
+      padding: const EdgeInsets.only(left: 17, top: 12),
       color: const Color(0xff1A1A1A),
       width: Constants.mediaQuery.width,
       height: Constants.mediaQuery.height * 0.23,
@@ -34,14 +34,14 @@ class RecommendedMovies extends StatelessWidget {
             }
             var dataList = snapshot.data ?? [];
             return Container(
-              margin: const EdgeInsets.only(top: 10, bottom: 4),
-              height: Constants.mediaQuery.height * 0.155,
+              margin: const EdgeInsets.only(top: 7, bottom: 4),
+              height: Constants.mediaQuery.height * 0.166,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: dataList.length,
                   itemBuilder: (context, index) => RecommendedMoviesWidget(
-                    recommendedModel: dataList[index],
-                  )),
+                        recommendedModel: dataList[index],
+                      )),
             );
           },
         ),

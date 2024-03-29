@@ -15,7 +15,7 @@ class ReleaseMoviesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: const EdgeInsets.only(top: 10, bottom: 13, right: 15),
+        margin: const EdgeInsets.only(top: 9, bottom: 13, right: 15),
         child: FavoriteWidget(
             newImage: GestureDetector(
                 onTap: () {
@@ -23,7 +23,10 @@ class ReleaseMoviesWidget extends StatelessWidget {
                       arguments: AllMoviesId(
                           id: releaseModel.id!, name: releaseModel.title!));
                 },
-                child: Image.network(
-                    "${Constants.imagePath}${releaseModel.posterPath}"))));
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  child: Image.network(
+                      "${Constants.imagePath}${releaseModel.posterPath}"),
+                ))));
   }
 }

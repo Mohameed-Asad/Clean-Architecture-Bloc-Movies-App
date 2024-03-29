@@ -5,6 +5,7 @@ import 'package:movies_project/core/config/Constants.dart';
 import 'package:movies_project/core/models/model_details.dart';
 import 'package:movies_project/core/models/recommended_model.dart';
 import 'package:movies_project/core/models/release_model.dart';
+import 'package:movies_project/core/models/similar_model.dart';
 
 import '../models/popular_model.dart';
 
@@ -100,7 +101,7 @@ class ApiManager {
   }
 
   // Function to get moreLike This Movies
-  static Future<List<RecommendedModel>> getSimilarMovies(int movieId) async {
+  static Future<List<SimilarModel>> getSimilarMovies(int movieId) async {
     var url = Uri.https(Constants.baseUrl, "/3/movie/$movieId/similar",
         {"apiKey": Constants.apiKey, "movie_id": "$movieId"});
 
@@ -111,11 +112,11 @@ class ApiManager {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       var dataList = data["results"] as List;
-      List<RecommendedModel> recommendedModel = [];
+      List<SimilarModel> similarModel = [];
       for (var e in dataList) {
-        recommendedModel.add(RecommendedModel.fromJson(e));
+        similarModel.add(SimilarModel.fromJson(e));
       }
-      return recommendedModel;
+      return similarModel;
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

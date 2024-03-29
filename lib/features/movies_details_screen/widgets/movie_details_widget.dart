@@ -17,7 +17,13 @@ class MovieDetailsWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.network("${Constants.imagePath}${modelDetails.backPath}"),
+        Container(
+            height: 235,
+            color: Colors.transparent,
+            child: Image.network(
+              "${Constants.imagePath}${modelDetails.backPath}",
+              fit: BoxFit.cover,
+            )),
         Padding(
           padding: const EdgeInsets.only(top: 10, left: 20),
           child: Text(
@@ -41,8 +47,11 @@ class MovieDetailsWidget extends StatelessWidget {
             children: [
               // add to favourite Icon and poster imager
               FavoriteWidget(
-                  newImage: Image.network(
-                      "${Constants.imagePath}${modelDetails.posterPath}")),
+                  newImage: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(6)),
+                child: Image.network(
+                    "${Constants.imagePath}${modelDetails.posterPath}"),
+              )),
               const SizedBox(
                 width: 15,
               ),
@@ -97,7 +106,6 @@ class MovieDetailsWidget extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, top: 12, bottom: 10),
           color: const Color(0xff1A1A1A),
           height: Constants.mediaQuery.height * 0.25,
-          width: Constants.mediaQuery.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -120,12 +128,12 @@ class MovieDetailsWidget extends StatelessWidget {
                   var dataList = snapshot.data ?? [];
                   return Container(
                       margin: const EdgeInsets.only(top: 10, bottom: 4),
-                      height: Constants.mediaQuery.height * 0.155,
+                      height: Constants.mediaQuery.height * 0.176,
                       child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: dataList.length,
-                          itemBuilder: (context, index) => SimilarWidget(
-                              recommendedModel: dataList[index])));
+                          itemBuilder: (context, index) =>
+                              SimilarWidget(similarModel: dataList[index])));
                 },
               ),
             ],

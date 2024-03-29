@@ -41,8 +41,12 @@ class PopularMoviesWidget extends StatelessWidget {
                     width: Constants.mediaQuery.width * 0.33,
                     height: Constants.mediaQuery.height * 0.2,
                     child: FavoriteWidget(
-                      newImage: Image.network(
-                          "${Constants.imagePath}${popularMovies.posterPath}"),
+                      newImage: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(6)),
+                        child: Image.network(
+                            "${Constants.imagePath}${popularMovies.posterPath}"),
+                      ),
                     )),
               ],
             ),

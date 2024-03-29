@@ -16,10 +16,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(8), topLeft: Radius.circular(8)),
-            child: widget.newImage),
+        widget.newImage,
         if (!isClicked) Image.asset("assets/Images/favorite.png"),
         if (!isClicked)
           Positioned(
@@ -37,7 +34,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
                   size: 20,
                 ),
               )),
-        if (isClicked) Image.asset("assets/Images/bookmark.png"),
+        if (isClicked) Image.asset("assets/Images/awesome-bookmark.png"),
         if (isClicked)
           Positioned(
               top: -10,

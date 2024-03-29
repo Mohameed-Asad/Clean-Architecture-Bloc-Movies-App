@@ -17,7 +17,6 @@ class RecommendedMoviesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 15),
-      height: Constants.mediaQuery.height * 0.13,
       width: Constants.mediaQuery.width * 0.21,
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),
@@ -30,13 +29,20 @@ class RecommendedMoviesWidget extends StatelessWidget {
                 arguments: AllMoviesId(
                     id: recommendedModel.id!, name: recommendedModel.title));
           },
-          child: Image.network(
-            "${Constants.imagePath}${recommendedModel.posterPath}",
-            height: 78,
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(5), topRight: Radius.circular(5)),
+              child: Image.network(
+                "${Constants.imagePath}${recommendedModel.posterPath}",
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
         )),
         Container(
-          margin: const EdgeInsets.only(bottom: 1, left: 5, top: 3, right: 2),
+          margin: const EdgeInsets.only(bottom: 2, left: 5, top: 3, right: 2),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,7 +67,8 @@ class RecommendedMoviesWidget extends StatelessWidget {
               ),
               Text(
                 recommendedModel.title,
-                style: Constants.theme.textTheme.displaySmall,
+                style: Constants.theme.textTheme.displaySmall
+                    ?.copyWith(height: 1.1),
               ),
               const SizedBox(
                 height: 2,

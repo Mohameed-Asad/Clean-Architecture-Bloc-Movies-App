@@ -11,7 +11,7 @@ class ReleaseMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments as ApisCaller;
     return Container(
-      padding: const EdgeInsets.only(left: 17, top: 17),
+      padding: const EdgeInsets.only(left: 17, top: 12, bottom: 3),
       color: const Color(0xff1A1A1A),
       width: Constants.mediaQuery.width,
       height: Constants.mediaQuery.height * 0.23,
