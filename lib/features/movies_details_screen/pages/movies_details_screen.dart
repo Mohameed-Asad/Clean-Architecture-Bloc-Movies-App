@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/models/allmovies_model.dart';
-import 'package:movies_project/core/models/model_details.dart';
 import 'package:movies_project/core/network/api_manager.dart';
+
+import '../widgets/movie_details_widget.dart';
 
 class MoviesDetails extends StatelessWidget {
   const MoviesDetails({super.key});
@@ -17,17 +18,17 @@ class MoviesDetails extends StatelessWidget {
           body: FutureBuilder(
               future: ApiManager.getModelDetails(movieId.id),
               builder: (context, snapshot) {
-                var model = snapshot.data ??
-                    ModelDetails(
-                      posterPath: "",
-                      title: "",
-                      releaseDate: "",
-                      backPath: "",
-                      description: "",
-                      rate: 0,
-                    );
-                print(model.description);
-                return Text(model.title);
+                if (snapshot.hasError) {
+                  return const Center(
+                    child: Text("Something went wrong"),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                var model = snapshot.data;
+                print(movieId.id);
+                return MovieDetailsWidget(modelDetails: model!);
               })),
     );
   }

@@ -1,33 +1,45 @@
 class ModelDetails {
-  final String backPath;
-  final String posterPath;
-  final String title;
-  final String releaseDate;
-  final String description;
-  final double rate;
+  int? id;
+  String? backPath;
+  String? posterPath;
+  String? title;
+  String? releaseDate;
+  String? description;
+  double? rate;
+  List<KindOfMovie>? kinds;
 
-  // final List<KindOfMovie> kinds;
+  ModelDetails(
+      {this.id,
+      this.backPath,
+      this.posterPath,
+      this.title,
+      this.releaseDate,
+      this.description,
+      this.rate,
+      this.kinds});
 
-  ModelDetails({
-    required this.backPath,
-    required this.posterPath,
-    required this.title,
-    required this.releaseDate,
-    required this.description,
-    required this.rate,
-  });
-
-  factory ModelDetails.fromJson(Map<String, dynamic> json) => ModelDetails(
-        backPath: json["backdrop_path"],
-        posterPath: json["poster_path"],
-        title: json["title"],
-        releaseDate: json["release_date"],
-        description: json["overview"],
-        rate: json["vote_average"],
-      );
+  ModelDetails.fromJson(Map<String, dynamic> json) {
+    id = json["id"];
+    backPath = json["backdrop_path"];
+    posterPath = json["poster_path"];
+    title = json["title"];
+    releaseDate = json["release_date"];
+    description = json["overview"];
+    rate = json["vote_average"];
+    if (json["genres"] != null) {
+      kinds = [];
+      json["genres"].forEach((e) {
+        kinds?.add(KindOfMovie.fromJson(e));
+      });
+    }
+  }
 }
 
 class KindOfMovie {
-  int? id;
-  String? name;
+  final String name;
+
+  KindOfMovie({required this.name});
+
+  factory KindOfMovie.fromJson(Map<String, dynamic> json) =>
+      KindOfMovie(name: json["name"]);
 }
