@@ -27,7 +27,7 @@ class AppThemeManager {
       unselectedItemColor: Color(0xffC6C6C6),
       unselectedIconTheme: IconThemeData(
         color: Color(0xffC6C6C6),
-        size: 25,
+        size: 22,
       ),
       unselectedLabelStyle: TextStyle(
         fontFamily: "Inter",
@@ -37,7 +37,7 @@ class AppThemeManager {
       ),
       selectedIconTheme: IconThemeData(
         color: Color(0xffFFB224),
-        size: 27,
+        size: 24,
       ),
       selectedLabelStyle: TextStyle(
         fontFamily: "Inter",

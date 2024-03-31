@@ -1,21 +1,28 @@
-class SimilarModel {
-  int? id;
-  final String title;
-  final double rate;
-  final String posterPath;
-  final String releaseDate;
+import 'package:movies_project/core/models/allmovies_model.dart';
 
+class SimilarModel extends AllMoviesModel {
   SimilarModel(
-      {this.id,
-      required this.title,
-      required this.rate,
-      required this.posterPath,
-      required this.releaseDate});
+      {int? id,
+      String? title,
+      String? posterPath,
+      String? releaseDate,
+      double? rate,
+      String? backPath})
+      : super(
+            id: id,
+            title: title,
+            posterPath: posterPath,
+            releaseDate: releaseDate,
+            rate: rate,
+            backPath: backPath);
 
-  factory SimilarModel.fromJson(Map<String, dynamic> json) => SimilarModel(
-      id: json["id"],
-      title: json["title"],
-      rate: json["vote_average"],
-      posterPath: json["poster_path"],
-      releaseDate: json["release_date"]);
+  @override
+  SimilarModel fromJson(Map<String, dynamic> json) => SimilarModel(
+        id: json["id"],
+        title: json["title"],
+        rate: json["vote_average"],
+        posterPath: json["poster_path"],
+        releaseDate: json["release_date"],
+        backPath: json["backdrop_path"],
+      );
 }

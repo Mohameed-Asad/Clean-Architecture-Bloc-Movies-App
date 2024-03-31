@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/config/Constants.dart';
-import 'package:movies_project/core/models/model_details.dart';
+
+import '../../../core/models/model_details.dart';
 
 class GenresWidget extends StatelessWidget {
   final KindOfMovie genres;

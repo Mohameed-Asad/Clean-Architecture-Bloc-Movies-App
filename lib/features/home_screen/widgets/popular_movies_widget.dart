@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/config/Constants.dart';
-import 'package:movies_project/core/models/allmovies_model.dart';
 import 'package:movies_project/core/route_manager/routes_names.dart';
 import 'package:movies_project/core/widgets/add_favourite.dart';
 import 'package:movies_project/main.dart';
@@ -18,7 +17,7 @@ class PopularMoviesWidget extends StatelessWidget {
       onTap: () {
         navigatorKey.currentState!.pushNamed(PagesRoutesName.details,
             arguments:
-                AllMoviesId(id: popularMovies.id, name: popularMovies.title));
+                PopularModel(id: popularMovies.id, title: popularMovies.title));
       },
       child: Stack(
         children: [
@@ -41,6 +40,7 @@ class PopularMoviesWidget extends StatelessWidget {
                     width: Constants.mediaQuery.width * 0.33,
                     height: Constants.mediaQuery.height * 0.2,
                     child: FavoriteWidget(
+                      favModel: popularMovies,
                       newImage: ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(6)),
@@ -58,7 +58,7 @@ class PopularMoviesWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  popularMovies.title,
+                  popularMovies.title!,
                   style: Constants.theme.textTheme.bodyLarge?.copyWith(
                     height: 1,
                   ),
@@ -68,7 +68,7 @@ class PopularMoviesWidget extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  popularMovies.releaseDate,
+                  popularMovies.releaseDate!,
                   style: Constants.theme.textTheme.bodyMedium
                       ?.copyWith(color: Colors.grey),
                   textAlign: TextAlign.start,

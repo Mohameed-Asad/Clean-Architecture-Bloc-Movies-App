@@ -9,14 +9,15 @@ class MoviesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var movieId = ModalRoute.of(context)?.settings.arguments as AllMoviesId;
+    var movieDetails =
+        ModalRoute.of(context)?.settings.arguments as AllMoviesModel;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            title: Text(movieId.name),
+            title: Text(movieDetails.title!),
           ),
           body: FutureBuilder(
-              future: ApiManager.getModelDetails(movieId.id),
+              future: ApiManager.getModelDetails(movieDetails.id!),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return const Center(

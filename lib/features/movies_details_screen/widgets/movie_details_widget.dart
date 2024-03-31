@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/config/Constants.dart';
 import 'package:movies_project/core/config/app_theme_manager.dart';
-import 'package:movies_project/core/models/model_details.dart';
 import 'package:movies_project/core/network/api_manager.dart';
 import 'package:movies_project/core/widgets/add_favourite.dart';
 import 'package:movies_project/features/movies_details_screen/widgets/genres_widget.dart';
 import 'package:movies_project/features/movies_details_screen/widgets/similar_widget.dart';
+
+import '../../../core/models/model_details.dart';
 
 class MovieDetailsWidget extends StatelessWidget {
   final ModelDetails modelDetails;
@@ -28,7 +29,7 @@ class MovieDetailsWidget extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10, left: 20),
           child: Text(
             "${modelDetails.title}",
-            style: Constants.theme.textTheme.bodyLarge,
+            style: Constants.theme.textTheme.bodyLarge?.copyWith(height: 1.1),
           ),
         ),
         Padding(
@@ -47,11 +48,12 @@ class MovieDetailsWidget extends StatelessWidget {
             children: [
               // add to favourite Icon and poster imager
               FavoriteWidget(
+                  favModel: modelDetails,
                   newImage: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(6)),
-                child: Image.network(
-                    "${Constants.imagePath}${modelDetails.posterPath}"),
-              )),
+                    borderRadius: const BorderRadius.all(Radius.circular(6)),
+                    child: Image.network(
+                        "${Constants.imagePath}${modelDetails.posterPath}"),
+                  )),
               const SizedBox(
                 width: 15,
               ),
@@ -75,11 +77,16 @@ class MovieDetailsWidget extends StatelessWidget {
                                 genres: modelDetails.kinds![index])),
                       ),
                       Expanded(
-                        child: Text(
-                          "${modelDetails.description}",
-                          style: Constants.theme.textTheme.displaySmall
-                              ?.copyWith(height: 1.2),
+                        child: SingleChildScrollView(
+                          child: Text(
+                            "${modelDetails.description}",
+                            style: Constants.theme.textTheme.displaySmall
+                                ?.copyWith(height: 1.3),
+                          ),
                         ),
+                      ),
+                      const SizedBox(
+                        height: 3,
                       ),
                       Row(
                         children: [
