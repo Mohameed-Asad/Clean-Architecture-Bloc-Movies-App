@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_project/core/config/app_theme_manager.dart';
-import 'package:movies_project/core/route_manager/routes.dart';
-import 'package:movies_project/core/route_manager/routes_names.dart';
 
-import 'core/network/firebase_options.dart';
+import 'core/config/route_manager/routes.dart';
+import 'core/config/route_manager/routes_names.dart';
+import 'core/services/firebase_options.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

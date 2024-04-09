@@ -16,8 +16,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   carousel_slider: ^4.2.1
   firebase_core: ^2.27.0
-  http: ^1.2.0
   cloud_firestore: ^4.15.8
+  dio: ^5.4.2+1
+  dartz: ^0.10.1
+  flutter_bloc: ^8.1.5
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
